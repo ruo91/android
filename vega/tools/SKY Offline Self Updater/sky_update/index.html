@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Offline SKY Self Upgrade</title>    
+        <link href="css/reset.css" rel="stylesheet" type="text/css" />   
+        <link href="css/common.css" rel="stylesheet" type="text/css" />  
+        <script type="text/javascript" src="js/jquery-1.5.1.min.js" ></script> 
+        <script type="text/javascript" src="js/ui.js" ></script> 
+ 
+ 
+        <script type="text/javascript">
+        	var index = 1;
+        	var start_rady = 0;
+        	var confirm = 1;
+        	var backup = 1;
+        	
+        	window.onload = function (){
+	        	OnLoad();	
+        	}
+			
+        	function blink_msg(){
+        		setInterval("blink_unit()", 500);
+        	}
+			
+			function confirm_view(){
+				popBgLayer.run('alert_confirm');
+			}
+			
+			function blink_unit(){
+        		if(document.getElementById("progress_title").innerHTML == "&nbsp;"){
+        			document.getElementById("progress_title").innerHTML = document.getElementById("progress_title_temp").value;
+        		}else{
+        			document.getElementById("progress_title").innerHTML = "&nbsp;";
+        		}
+        	}
+        	
+        	function upgrade_cancel(){
+        	    Cancel();
+        	}
+        	
+        	function start_btn_disable(){
+        		confirm = document.getElementById("confirm").checked;
+        		backup = document.getElementById("backup").checked;
+        		
+        		if(confirm && backup && start_rady){ 
+        			document.getElementById("btn_start").innerHTML = "<img src='images/btn/btn_upgrade_start.png' alt='' onclick='upgrade_start();' class='pointer'/> ";
+        		}else{
+        		    if(start_rady){
+        		        document.getElementById("btn_start").innerHTML = "<img src='images/btn/start_disable.png' alt='' /> ";
+        		    }
+        		}      		
+        	}
+        	
+        	function upgrade_cancel_ok(){
+        	    //document.getElementById("upgrade_progress").style.display = "none";
+        		document.getElementById("upgrade_start").style.display = "block";
+        		document.getElementById("upgrade_progress").style.top= "-9999px";
+        		document.getElementById("upgrade_progress").style.left= "-9999px";
+        	}
+        	
+        	function cancel_btn_hide(){
+        	    //<![CDATA[
+        		document.getElementById("btn_cancel").innerHTML = "";
+        		//]]>
+        	}
+        	
+        	function upgrade_close(){
+        	    window.open('', '_self', '');
+        	    window.close();
+        	}
+        	
+        	function close_btn_show(){
+        	    //<![CDATA[
+        		document.getElementById("btn_cancel").innerHTML = "<img src='images/btn/btn_close.png' alt='종료' class='pointer' onclick='upgrade_close();'/>";
+        		//]]>
+        	}  	
+        	
+        	function upgrade_start(){
+        		//document.getElementById("upgrade_progress").style.display = "block";
+        		document.getElementById("upgrade_start").style.display = "none";
+        		document.getElementById("upgrade_progress").style.top = "137px";
+        		document.getElementById("upgrade_progress").style.left = "0";
+        		Start();
+        	}
+        	
+        	function retry_btn_show(){
+        	    //<![CDATA[
+        		document.getElementById("btn_cancel").innerHTML = "<img src='images/btn/btn_retry.png' alt='재시도' class='pointer' onclick='upgrade_retry();'/>";
+        		//]]>
+        	}
+        	
+        	function upgrade_retry(){
+        	    Start();
+        	     //<![CDATA[
+        		document.getElementById("btn_cancel").innerHTML = "<img src='images/btn/btn_cancel.png' alt='취소' class='pointer' onclick='upgrade_cancel();'/>";
+        		//]]>
+        	}
+        	        	
+			function runEvent(){
+				var func = setInterval("eventFadeIn()", 30*1000);
+        		
+	        	$(".event_right").bind("mouseover", function(){
+	        		clearInterval(func);
+	        	});		
+	        	
+	        	$(".event_right").bind("mouseout", function(){
+	        		func = setInterval("eventFadeIn()", 30*1000);
+	        	});
+			}
+			
+        	function eventFadeIn(){
+        		//$("#event"+index).fadeOut();
+				document.getElementById("event"+index).style.display = "none";
+        		index++;
+        		if(index > 4) index = 1;
+        		$("#event"+index).fadeIn();
+				//document.getElementById("event"+index).style.display = "block";
+        	}
+        	
+        	function StartEnable(){
+        		//<![CDATA[
+				document.getElementById("event_driver").style.display = "none";
+				document.getElementById("event1").style.display = "block";
+				document.getElementById("img_upgrade_title").innerHTML = "<img src='images/txt/txt_upgrade_guide_1.png' alt='휴대폰과 PC를 USB 케이블로 연결하였나요?'/>";
+				runEvent();
+        		start_rady = 1;
+				if(confirm && backup && start_rady){ 
+        			document.getElementById("btn_start").innerHTML = "<img src='images/btn/btn_upgrade_start.png' alt='' onclick='upgrade_start();' class='pointer'/> ";
+        		}else{
+        			document.getElementById("btn_start").innerHTML = "<img src='images/btn/start_disable.png' alt='' /> ";
+        		}
+        		//]]>
+        	}
+        	
+        	function usbInstallWait(){
+        		//<![CDATA[
+				document.getElementById("event1").style.display = "none";
+				document.getElementById("event_driver").style.display = "block";
+        		document.getElementById("btn_start").innerHTML = "<img src='images/btn/btn_usb.gif' alt='Usb Driver 설치중'/>";
+        		document.getElementById("img_upgrade_title").innerHTML = "<img src='images/txt/txt_upgrade_guide_2.png' alt='휴대폰과 PC를 USB 케이블로 해제하였나요?'/>";
+				//]]>
+        	}
+        	
+        	function status_message(msg) {
+        	    document.getElementById("progress_title").innerHTML = "<b>"+msg+"</b>";
+        	}        	
+        	
+        	function keydown() {
+                if(event.keyCode ==116){
+                    event.keyCode= 38;
+                }
+                return false;
+            }
+            document.onkeydown=keydown;     	     	   	
+        </script> 
+        <script language="VBScript">
+            Sub OnLoad()
+                window.CuriDown1.OnLoad
+            End Sub
+            
+            Sub CuriDown1_OnLoadOK(nCode)
+	            If nCode = 2 Then
+		            StartEnable()
+		            ' blink_msg()
+	            ElseIf nCode = 1 Then
+		            alert("Internet Explorer의 버전이 6 이상만 지원합니다.\n\n업그레이드를 종료합니다.")
+		            close
+		        ElseIf nCode = 3 Then
+		            usbInstallWait()
+	            ElseIf nCode = 0 Then
+		            alert("Windows XP 이상만 지원합니다.\n\n업그레이드를 종료합니다.")
+		            close
+	            End If
+            End Sub
+            
+            Sub Start
+                window.CuriDown1.StartDown
+            End Sub
+            
+            Sub Cancel
+                window.CuriDown1.UpgradeCancel
+            End Sub
+
+            Sub CuriDown1_ErrorMessage(nErrCode, strMessage, strCaption)
+	            If nErrCode = 1 Then
+		            status_message(strMessage)
+		        ElseIf nErrCode = 2 Then
+		            upgrade_cancel_ok()
+		        ElseIf nErrCode = 3 Then
+		            cancel_btn_hide()
+		        ElseIf nErrCode = 4 Then
+		            close_btn_show()
+		        ElseIf nErrCode = 5 Then
+		            status_message(strMessage)
+		            retry_btn_show()
+	            Else
+		            alert (strMessage)
+	            End If	
+            End Sub
+ 
+        </script>        
+    </head>
+    <body oncontextmenu="return false" ondragstart="return false" style="background:#ececec">
+<div style="margin:0 auto; width:800px; height:540px; position:relative;">
+ 
+        <h1>SELF UPGRADE SERVICE</h1>
+    	<input type='hidden' id='progress_title_temp' value='&nbsp;'/>
+        <div class="main">
+        	<div class="main_title"><img src="images/txt/txt_sky_title.png" alt="SELF UPGRADE SERVICE"/></div>
+        	<!--START 버튼 시작-->
+        	<div id="upgrade_start">
+        		<div class="upgrade_confirm">
+        			<img src="images/txt/txt_confirm_guide.png" alt="" usemap="#confirm_guide"/>
+						<map name="confirm_guide" id="confirm_guide">
+                            <area shape="rect" coords="110, 12, 145, 40" href="#" onclick="confirm_view();"/>
+                        </map>        			
+        			<input type="checkbox" id="confirm" checked="checked" onClick="start_btn_disable();"/>
+        			<input type="checkbox" id="backup" checked="checked" onClick="start_btn_disable();"/>
+        		</div>
+        		<div class="upgrade_title" id="img_upgrade_title"><img src="images/txt/txt_upgrade_guide_1.png" alt="휴대폰과 PC를 USB 케이블로 연결하였나요?"/></div>
+        		<div class="btn_start" id="btn_start"><img src="images/btn/btn_wait.gif"/></div>
+        		<div class="upgrade_guide"><img src="images/txt/txt_upgrade_guide.png" alt="업그레이드 진행 전 주의 사항을 체크하세요."/></div>
+        		
+        	</div>
+        	<!--//START 버튼 끝-->
+        	<!--프로그레스바 시작-->
+        	<div id="upgrade_progress">
+        		<div id="progress_title">업그레이드를 시작 합니다.</div>
+        		<div id="progress_status">
+        			<object id="CuriDown1" classid="CLSID:9D69C16B-5370-495E-B403-4C9C6A66591D" width="275" height="71" codebase="SkyUpdate.Cab#version=1,1,2,12" viewastext>
+						<param name="IsProgVisible" value="1"/>
+						<param name="IsStatusVisible" value="0"/>
+					</object>
+				</div>
+        		<div class="btn_cancel" id="btn_cancel"><img src="images/btn/btn_cancel.png" alt="취" class="pointer" onclick="upgrade_cancel();"/></div>
+        	</div>
+        	<!--//프로그레스바 끝--></DIV><!--오른쪽 이벤트 영역 시작-->
+<DIV class=event_right>
+<DIV id=event_driver class=event>
+<H2>event_driver</H2>
+<DIV class=event_content><IMG alt="" 
+src="Self%20Upgrade_files/self.jpg"></DIV></DIV>
+<DIV id=event1 class=event>
+<H2>Event1</H2>
+<DIV class=event_content><IMG alt="스마트폰 이용자 10대 안전수칙" 
+src="Self%20Upgrade_files/txt_content_event1.jpg"> </DIV></DIV>
+<DIV id=event2 class=event>
+<H2>Event2</H2>
+<DIV class=event_content><IMG alt="서비스센터 방문 예약" 
+src="Self%20Upgrade_files/txt_content_event2.jpg" useMap=#event1_link> <MAP 
+id=event1_link name=event1_link><AREA 
+  href="http://www.skyservice.co.kr/center/reserve/reserve_step1.sky" shape=rect 
+  alt="Gmail을 설정, 사용하고 있습니다." target=_blank 
+coords="52, 428, 156, 404"></MAP></DIV></DIV>
+<DIV id=event3 class=event>
+<H2>Event3</H2>
+<DIV class=event_content><IMG alt="스마트폰 잠금해제" 
+src="Self%20Upgrade_files/txt_content_event3.jpg" useMap=#event2_link> <MAP 
+id=event2_link name=event2_link><AREA 
+  href="http://www.skyservice.co.kr/support/faq/view.sky?seq=277" shape=rect 
+  alt="iSKY에 회원가입과 제품등록이 되어 있습니다." target=_blank 
+coords="56, 276, 202, 302"></MAP></DIV></DIV>
+<DIV id=event4 class=event>
+<H2>Event4</H2>
+<DIV class=event_content><IMG alt="이용시간 안내" 
+src="Self%20Upgrade_files/txt_content_event4.jpg"> </DIV></DIV></DIV><!--//오른쪽 이벤트 영역 끝-->
+</div>
+</body>
+</html>

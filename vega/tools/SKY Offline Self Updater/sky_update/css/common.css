@@ -1,0 +1,29 @@
+﻿body {font-size:72%; line-height:1.2;}
+h1 {font-size:0; height:1px; line-height:0; position:absolute; width:1px; overflow:hidden;}
+.main {background:url(../images/bg/bg_main_left.gif) no-repeat 0 0; width:305px; height:540px; position:absoluteb; left:0;}
+
+.main_title {position:relative; left:15px; top:18px;}
+#upgrade_start {position:relative; top:35px; display:block;}
+#upgrade_start .upgrade_confirm {padding:0 8px 45px 13px;}
+#upgrade_start #confirm {position:absolute; left:238px; top:15px;}
+#upgrade_start #backup {position:absolute; left:238px; top:97px;}
+#upgrade_start .upgrade_title {padding:0 42px 22px 14px;}
+#upgrade_start .btn_start {height:39px; padding:0 60px 0 61px;}
+#upgrade_start .upgrade_guide {padding:16px 21px 90px 35px;}
+#upgrade_start ul {padding:0 33px;}
+#upgrade_start ul li {display:inline; padding:0 3px;}
+
+#upgrade_progress {position:relative; top:-9999px; left:-9999px; display:block; height:140px;}
+#upgrade_progress #progress_title {position:absolute; bottom:106px; padding:2px 8px 0 15px; color:#595959;}
+/*#upgrade_progress #progress_status {background:url(../images/bg/bg_progress_box.png) no-repeat 0 0; width:275px; height:71px; margin-left:13px;}*/
+#upgrade_progress #progress_status {position:absolute; background:url(../images/bg/bg_progress_box.png) no-repeat 0 0; width:275px; height:71px; margin-left:13px; top:38px;}
+#upgrade_progress .btn_cancel {position:absolute; padding:6px 12px 0 237px; top:108px;}
+
+.pointer {cursor:pointer;}
+.event_right {display:none;}
+
+.alert{display:none; width:315px; height:315px; background:url(../images/bg/alert_bg.gif) no-repeat 0 0}/*alert 레이어 팝업*/
+.alert .tit{height:40px; padding:13px 0 0 16px; color:#7f8ba0; font-weight:bold}
+.alert .cont{height:68px; margin:0 30px;}
+.alert .cont1{height:118px; margin:0 30px;}
+.alert .btn{text-align:center;}
